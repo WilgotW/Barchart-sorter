@@ -6,26 +6,42 @@ function SorterWindow() {
    
     const [barIndex, setBarIndex] = useState(0);
     const [leftBarIndex, setLeftBarIndex] = useState(0);
-    
-    
-    let iterations = 0;
+    const [iterations, setIterations] = useState(0);
 
     const randomNum = (max, min) => Math.floor(Math.random() * (max - min) + min); 
+    
+   
 
-    const addBar = () => {        
-        const newBar = {
-            height: randomNum(20, 500),
-            background: "orange"
-        }
-        const newBars = [newBar, ...bars];
+    const addBar = () => { 
+        let newBars = [...bars];  
+        for (let i = 0; i < 30; i++) {
+            const newBar = {
+                height: randomNum(20, 500),
+                background: "orange"
+            }
+            
+            newBars = [newBar, ...newBars];
+            
+        } 
         setBars(newBars);
-
-        setBarIndex(bars.length);
-        setLeftBarIndex(bars.length - 1);
+        setBarIndex(newBars.length);
+        setLeftBarIndex(newBars.length - 1);    
+        
     }
 
-    function sort () {
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            console.log("hej")
+            sort();
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, []);
+  
+
+    const sort = () => {
+        console.log("nej")
         const allBars = [...bars];
+        
         //select bar
         const selectedBar = { ...allBars[barIndex] };
         const leftBar = { ...allBars[leftBarIndex] };
@@ -41,17 +57,17 @@ function SorterWindow() {
         }
 
         if(leftBarIndex != 0){
+            
             setBarIndex(barIndex - 1);
             setLeftBarIndex(leftBarIndex - 1);
         }else{
-            iterations++;
-            // console.log("left bar reached the end");
+            setIterations(iterations + 1);
             setBarIndex(allBars.length - iterations);
             setLeftBarIndex(allBars.length - 1 - iterations);
         }
-        setBars(allBars);
+        setBars(allBars);   
     }
-
+    
     const swapItems = (arr, item1, item2) => {
         const temp = arr[item1];
         arr[item1] = arr[item2];
