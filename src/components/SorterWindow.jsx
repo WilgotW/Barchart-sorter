@@ -4,7 +4,8 @@ import Bar from './Bar'
 function SorterWindow() {
     const [bars, setBars] = useState([]);
    
-    let barIndex;
+    let barIndex = bars.length-1;
+    let leftBarIndex = barIndex-1;
 
     const randomNum = (max, min) => Math.floor(Math.random() * (max - min) + min); 
 
@@ -17,21 +18,44 @@ function SorterWindow() {
         setBars(newBars);
         
     }
+
+    
     
     function sort () {
         const allBars = [...bars];
-        //get selected bar array index value
-        barIndex = allBars.length-1;   
+        
         //select bar
         const selectedBar = { ...allBars[barIndex] };
         //mark it with color blue
         selectedBar.background = "blue";
     
-        if(selectedBar)
+        //get bar to the left:
+        const leftBar = { ...allBars[leftBarIndex] };
+        leftBar.background = "green";
         
-        swapItems(allBars, barIndex, 1);
         allBars[barIndex] = selectedBar;
+        allBars[leftBarIndex] = leftBar;
         setBars(allBars);
+
+        console.log("selected bar: " + selectedBar.height);
+        console.log("left bar: " + leftBar.height);
+
+        if(selectedBar.height < leftBar.height){
+            console.log("selected bar is shorter")
+            swapItems(allBars, barIndex, leftBarIndex);
+            setBars(allBars);
+            
+        }
+        
+        if(leftBarIndex > 0){
+            barIndex--;
+            leftBarIndex--;
+            setTimeout(() => {
+                
+                sort();
+            }, 1000);
+        }
+        
     }
 
     const swapItems = (arr, item1, item2) => {
@@ -39,6 +63,7 @@ function SorterWindow() {
         arr[item1] = arr[item2];
         arr[item2] = temp;
     }
+    
 
   return (
     <div>
