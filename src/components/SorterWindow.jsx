@@ -4,8 +4,8 @@ import Bar from './Bar'
 function SorterWindow() {
     const [bars, setBars] = useState([]);
    
-    let barIndex = bars.length-1;
-    let leftBarIndex = barIndex-1;
+    let barIndex;
+    let leftBarIndex;
 
     const randomNum = (max, min) => Math.floor(Math.random() * (max - min) + min); 
 
@@ -24,6 +24,11 @@ function SorterWindow() {
     function sort () {
         const allBars = [...bars];
         
+        barIndex = bars.length-1;
+        leftBarIndex = barIndex-1
+
+        console.log("checking " + barIndex + " to " + leftBarIndex);
+
         //select bar
         const selectedBar = { ...allBars[barIndex] };
         //mark it with color blue
@@ -35,27 +40,28 @@ function SorterWindow() {
         
         allBars[barIndex] = selectedBar;
         allBars[leftBarIndex] = leftBar;
-        setBars(allBars);
-
-        console.log("selected bar: " + selectedBar.height);
-        console.log("left bar: " + leftBar.height);
-
+        
+        
         if(selectedBar.height < leftBar.height){
             console.log("selected bar is shorter")
             swapItems(allBars, barIndex, leftBarIndex);
-            setBars(allBars);
+           
+                
+        }else {
+            console.log("not shorter")
             
         }
         
-        if(leftBarIndex > 0){
-            barIndex--;
-            leftBarIndex--;
-            setTimeout(() => {
-                
-                sort();
-            }, 1000);
-        }
-        
+        setBars(allBars);
+
+        selectedBar.background = "orange";
+        leftBar.background = "orange";
+
+        setBars(allBars);
+    }
+
+    function callSort(){
+
     }
 
     const swapItems = (arr, item1, item2) => {
