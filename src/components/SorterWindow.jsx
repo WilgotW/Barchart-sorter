@@ -3,7 +3,9 @@ import Bar from './Bar'
 
 function SorterWindow() {
     const [bars, setBars] = useState([]);
-    
+   
+    let barIndex;
+
     const randomNum = (max, min) => Math.floor(Math.random() * (max - min) + min); 
 
     const addBar = bar => {        
@@ -17,7 +19,25 @@ function SorterWindow() {
     }
     
     function sort () {
-        bars[0].background = "blue";
+        const allBars = [...bars];
+        //get selected bar array index value
+        barIndex = allBars.length-1;   
+        //select bar
+        const selectedBar = { ...allBars[barIndex] };
+        //mark it with color blue
+        selectedBar.background = "blue";
+    
+        if(selectedBar)
+        
+        swapItems(allBars, barIndex, 1);
+        allBars[barIndex] = selectedBar;
+        setBars(allBars);
+    }
+
+    const swapItems = (arr, item1, item2) => {
+        const temp = arr[item1];
+        arr[item1] = arr[item2];
+        arr[item2] = temp;
     }
 
   return (
