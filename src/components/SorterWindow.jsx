@@ -4,30 +4,35 @@ import Bar from './Bar'
 function SorterWindow() {
     const [bars, setBars] = useState([]);
    
-    let barIndex;
-    let leftBarIndex;
+    const [barIndex, setBarIndex] = useState(0);
+    const [leftBarIndex, setLeftBarIndex] = useState(0);
+    
+    // let barIndex;
+    let iterations = 0;
 
     const randomNum = (max, min) => Math.floor(Math.random() * (max - min) + min); 
 
     const addBar = bar => {        
         const newBar = {
-            height: randomNum(50, 200),
+            height: randomNum(20, 500),
             background: "orange"
         }
         const newBars = [newBar, ...bars];
         setBars(newBars);
-        
+
+        setBarIndex(bars.length);
+        setLeftBarIndex(bars.length - 1);
     }
 
-    
-    
+    useEffect(() => {
+
+    }, [])
+
     function sort () {
+        // console.log(bars.length);
         const allBars = [...bars];
         
-        barIndex = bars.length-1;
-        leftBarIndex = barIndex-1
-
-        console.log("checking " + barIndex + " to " + leftBarIndex);
+        // console.log("checking " + barIndex + " to " + leftBarIndex);
 
         //select bar
         const selectedBar = { ...allBars[barIndex] };
@@ -41,28 +46,27 @@ function SorterWindow() {
         allBars[barIndex] = selectedBar;
         allBars[leftBarIndex] = leftBar;
         
-        
         if(selectedBar.height < leftBar.height){
-            console.log("selected bar is shorter")
             swapItems(allBars, barIndex, leftBarIndex);
-           
-                
-        }else {
-            console.log("not shorter")
-            
         }
+
+        // setBars(allBars);
+
+        if(leftBarIndex != 0){
+            setBarIndex(barIndex - 1);
+            setLeftBarIndex(leftBarIndex - 1);
+        }else{
+            iterations++;
+            // console.log("left bar reached the end");
+            setBarIndex(allBars.length - iterations);
+            setLeftBarIndex(allBars.length - 1 - iterations);
+        }
+        setBars(allBars);
+    }
+   
+    // function callSort(){
         
-        setBars(allBars);
-
-        selectedBar.background = "orange";
-        leftBar.background = "orange";
-
-        setBars(allBars);
-    }
-
-    function callSort(){
-
-    }
+    // }
 
     const swapItems = (arr, item1, item2) => {
         const temp = arr[item1];

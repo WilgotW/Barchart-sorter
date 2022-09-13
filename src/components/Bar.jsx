@@ -5,8 +5,8 @@ function Bar({bars}) {
         <div key={index} style={{
             background: bar.background,
             height: bar.height,
+            width: "30px"
         }}>
-            <h1>I'm a bar</h1>
         </div>
     ))
 }
