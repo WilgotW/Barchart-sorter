@@ -32,14 +32,14 @@ function SorterWindow() {
     // useEffect(() => {
     //     const timer = setTimeout(() => {
     //         console.log("hej")
-    //         sort();
-    //     }, 3000);
+    //     }, 1000);
     //     return () => clearTimeout(timer);
-    // }, []);
-  
+    // }, bars);
+    
+    
 
     const sort = () => {
-        const allBars = [...bars];
+        let allBars = [...bars];
         
         //select bar
         const selectedBar = { ...allBars[barIndex] };
@@ -56,7 +56,6 @@ function SorterWindow() {
         }
 
         if(leftBarIndex != 0){
-            
             setBarIndex(barIndex - 1);
             setLeftBarIndex(leftBarIndex - 1);
         }else{
