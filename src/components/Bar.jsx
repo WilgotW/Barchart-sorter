@@ -5,7 +5,7 @@ function Bar({bars}) {
         <div key={index} style={{
             background: bar.background,
             height: bar.height,
-            width: "30px"
+            width: "10px"
         }}>
         </div>
     ))

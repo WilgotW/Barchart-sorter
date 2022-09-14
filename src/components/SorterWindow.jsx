@@ -10,7 +10,7 @@ function SorterWindow() {
 
     const randomNum = (max, min) => Math.floor(Math.random() * (max - min) + min); 
     
-   
+    
 
     const addBar = () => { 
         let newBars = [...bars];  
@@ -30,12 +30,11 @@ function SorterWindow() {
     }
 
     // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         console.log("hej")
-    //     }, 1000);
-    //     return () => clearTimeout(timer);
-    // }, bars);
-    
+    //     const interval = setInterval(() => {
+            
+    //     }, 2000);
+    //     return () => clearInterval(interval);
+    // }, []);
     
 
     const sort = () => {
@@ -63,9 +62,22 @@ function SorterWindow() {
             setBarIndex(allBars.length - iterations);
             setLeftBarIndex(allBars.length - 1 - iterations);
         }
-        setBars(allBars);   
+
+        setBars(allBars);
     }
-    
+
+    // let i = 0;
+    // function myLoop() {         
+    //     setTimeout(function() {   
+    //     sort()
+    //     i++;                    
+    //     if (i < 20) {          
+    //         myLoop();             
+    //     }                       
+    //     }, 1000)
+    // }
+    // myLoop(); 
+
     const swapItems = (arr, item1, item2) => {
         const temp = arr[item1];
         arr[item1] = arr[item2];
@@ -76,7 +88,7 @@ function SorterWindow() {
   return (
     <div>
         <button onClick={addBar}>Add</button>
-        <button onClick={sort}>Sort</button>
+        <button>Sort</button>
         <div className='bar-positioning'>
             <Bar height={"1000px"} bars={bars}></Bar>
         </div>
