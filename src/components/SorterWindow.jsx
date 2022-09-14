@@ -29,17 +29,16 @@ function SorterWindow() {
         
     }
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            console.log("hej")
-            sort();
-        }, 3000);
-        return () => clearTimeout(timer);
-    }, []);
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         console.log("hej")
+    //         sort();
+    //     }, 3000);
+    //     return () => clearTimeout(timer);
+    // }, []);
   
 
     const sort = () => {
-        console.log("nej")
         const allBars = [...bars];
         
         //select bar
@@ -52,8 +51,8 @@ function SorterWindow() {
         allBars[barIndex] = selectedBar;
         allBars[leftBarIndex] = leftBar;
         
-        if(selectedBar.height < leftBar.height){
-            swapItems(allBars, barIndex, leftBarIndex);
+        if(selectedBar.height < leftBar.height){    
+            allBars = swapItems(bars, barIndex, leftBarIndex);
         }
 
         if(leftBarIndex != 0){
@@ -72,6 +71,7 @@ function SorterWindow() {
         const temp = arr[item1];
         arr[item1] = arr[item2];
         arr[item2] = temp;
+        return arr;
     }
     
   return (
